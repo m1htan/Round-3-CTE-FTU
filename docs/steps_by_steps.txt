@@ -1,0 +1,42 @@
+* Step 0:---------------------------------------------------------------------------------------------------------------
+
+1. (QUAN TRỌNG) Tạo một file .env trong thư mục config
+2. (QUAN TRỌNG) Điền FIINQUANT_USERNAME và FIINQUANT_PASSWORD theo tài khoản và mật khẩu được BTC cung cấp
+3. (QUAN TRỌNG) chạy file requirements.txt
+
+* Step 1:---------------------------------------------------------------------------------------------------------------
+
+0. Chạy các file lần lượt theo tiền tố được gán trước tên file (1 --> 2 --> 3 --> 4)
+1. Chạy file 1_crawl_data.py (nhớ chú ý dường dẫn file)
+2. Chạy file 2_validation_data.py (nhớ chú ý dường dẫn file)
+3. Chạy file 3_preprocess_data.py (nhớ chú ý dường dẫn file)
+4. (Optional) Chạy file 4_EDA_data.py (nhớ chú ý dường dẫn file)
+    --> Toàn bộ dữ liệu sinh ra sẽ được lưu tại thư mục data/step_1
+
+* Step 2:---------------------------------------------------------------------------------------------------------------
+
+1. Fundamental Indicators
+    Chạy file fundamental_indicators.py trong thư mục main/step_2 (nhớ chú ý đường dẫn thư mục)
+2. Technical Indicators
+    Chạy file technical_indicators.py trong thư mục main/step_2 (nhớ chú ý đường dẫn thư mục)
+3. Xử lý dữ liệu sau khi thêm các trường dữ liệu FI và TI
+    Chạy file data_processing_part_1.py trước rồi tới data_processing_part_2.py
+    --> Toàn bộ dữ liệu sinh ra sẽ được lưu tại thư mục data/step_2
+
+* Step 3:---------------------------------------------------------------------------------------------------------------
+
+1. Chạy file filtering.py (nhớ chú ý dường dẫn file)
+
+* Step 4:---------------------------------------------------------------------------------------------------------------
+
+1. Chạy file ML.py (nhớ chú ý dường dẫn file)
+
+* Step 5:---------------------------------------------------------------------------------------------------------------
+
+1. Chạy file backtest.py (nhớ chú ý dường dẫn file)
+2. Xem output của file backtest (biểu đồ, bảng biểu, ...) trong thư mục output_backtest
+
+* Step 6:---------------------------------------------------------------------------------------------------------------
+
+1. Chạy file stress_test.py (nhớ chú ý dường dẫn file)
+2. Xem output của file stress_test (biểu đồ, bảng biểu, ...) trong thư mục output_stress_test
