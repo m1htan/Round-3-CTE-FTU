@@ -1,0 +1,38 @@
+# === Python ===
+__pycache__/
+*.py[cod]
+*.so
+*.egg
+*.egg-info/
+dist/
+build/
+*.pyo
+
+# Jupyter Notebooks
+.ipynb_checkpoints/
+
+# === macOS ===
+.DS_Store
+**/.DS_Store
+.AppleDouble
+.LSOverride
+Icon
+
+# === VSCode ===
+.vscode/
+*.code-workspace
+
+# === Coverage Reports ===
+coverage/
+*.lcov
+
+# === Misc ===
+*.bak
+*.swp
+
+*.env
+
+*.log
+*.xls;xlsx;csv
+*.csv
+docs/Đề bài vòng 2 - Bảng ĐH - DSTC 2025.pdf
