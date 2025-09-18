@@ -1,61 +1,34 @@
-Round-3-CTE-FTU
-    config
-        .env                                                            # Chứa các biến môi trường của dự án
-    data
-        step_1
-            cleaned_stocks.csv                                          # Dữ liệu sau khi xử lý từ dữ liệu thô
-            raw_stocks.csv                                              # Dữ liệu thô sau khi crawl về từ HNXIndex
-        step_2
-            HNX_fundamental_ratios_quarterly.csv                        # Dữ liệu FI
-            HNX_ohlcv_with_fundamentals.csv                             # Dữ liệu merge FI và OHLCV
-            HNX_technical_indicators.csv                                # Dữ liệu TI
-            null_report_before_after.csv                                # So sánh dữ liệu trước và sau khi xử lý
-            part_1_cleaned_ohlcv_with_fundamentals_and_technical.csv    # Dữ liệu sau khi xử lý lần 1
-            part_2_cleaned_ohlcv_with_fundamentals_and_technical.csv    # Dữ liệu sau khi xử lý lần 2
-        step_3
-            HNX_picks_daily.csv
-            HNX_signals_daily.csv
-            step_3_merged.csv
-        step_4
-
-        step_5
-
-        step_6
-
-    docs
-        steps_by_steps.txt                                              # Hướng dẫn sử dụng
-        project_structure.txt                                           # Cấu trúc thư mục dự án
-    logs
-        step4_progress.log
-    main
-        step_1
-            1_crawl_data.py
-            2_validation_data.py
-            3_preprocess_data.py
-            4_EDA_data.py
-        step_2
-            data_processing_part_1.py
-            data_processing_part_2.py
-            fundamental_indicators.py
-            technical_indicators.py
-        step_3
-            filtering.py
-        step_4
-            ML.py
-        step_5
-            backtest.py                                                 # File backtest
-        step_6
-
-    output_backtest                                                     # Thư mục chứa đầu ra của backtest (bảng biểu, hình ảnh)
-    output_stress_test                                                  # Thư mục chứa đầu ra của stress_test (bảng biểu, hình ảnh)
-    test
-        test_backtest.py
-        test_check_null_col_in_dataset.py
-        test_check_signature_FA.py
-        test_connections.py
-        test_login.py
-
-    .gitattributes
-    .gitignore
-    README.md
-    requirements.txt
+Round-3-CTE-FTU/
+  config/
+    settings.yml                 # thông số scale, spam, cooldown, SLO,...
+    .env
+  data/
+    eod/                         # cache EOD
+    intraday_15m/                # cache intraday 15m
+    backfill/                    # snapshot nến & tín hiệu để replay
+  logs/
+    realtime/2025-09-13.csv      # mọi hoạt động ghi CSV
+  main/
+    adapters/
+      fiin_session.py            # login, retry, rate-limit
+      fiin_intraday.py           # lấy OHLCV 15′ theo sàn/mã
+      fiin_eod.py                # fundamentals + EOD
+    features/
+      tech_15m.py                # RSI, MACD, ADX, BB, ATR, ST, PSAR (15′)
+      merge_eod_filter.py        # lọc 40% valuation + EPS YoY > 0 + ROE > 0
+    engine/
+      signal_rules.py            # BUY/SELL/RISK + early + debounce(1 nến)
+      state_store.py             # in_position, last_signal, cooldown, alert_sent_at
+    alerts/
+      email_sender.py            # SMTP + template + throttle
+    app/
+      streamlit_app.py           # realtime + hiệu suất 30/60
+    orchestration/
+      scheduler.py               # poll 15′, EOD job; SLO guard
+      replay.py                  # backfill & kiểm thử
+  tests/
+    test_indicators_15m.py
+    test_signal_rules.py
+    test_email_sender.py
+    test_scheduler_replay.py
+  README.md
