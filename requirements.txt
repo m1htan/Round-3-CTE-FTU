@@ -1,4 +1,7 @@
+pandas~=2.2.3
+numpy~=2.2.6
+FiinQuantX~=0.1.35
 dotenv~=0.9.9
 python-dotenv~=1.1.1
-pandas~=2.2.3
-FiinQuantX~=0.1.35
+requests~=2.32.3
+streamlit~=1.49.1

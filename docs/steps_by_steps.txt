@@ -1,42 +1,34 @@
-* Step 0:---------------------------------------------------------------------------------------------------------------
+# Steps by Steps – Stock Alert System
 
-1. (QUAN TRỌNG) Tạo một file .env trong thư mục config
-2. (QUAN TRỌNG) Điền FIINQUANT_USERNAME và FIINQUANT_PASSWORD theo tài khoản và mật khẩu được BTC cung cấp
-3. (QUAN TRỌNG) chạy file requirements.txt
+## 1. Chuẩn bị môi trường
+pip install -r requirements.txt
 
-* Step 1:---------------------------------------------------------------------------------------------------------------
+## 2. Step 1 – Thu thập dữ liệu EOD
+Chạy lệnh để lấy dữ liệu EOD (OHLCV + fundamental cơ bản).
+python main/step_1/fetch_eod.py
+Kết quả: file CSV lưu trong data/step1_eod/
 
-0. Chạy các file lần lượt theo tiền tố được gán trước tên file (1 --> 2 --> 3 --> 4)
-1. Chạy file 1_crawl_data.py (nhớ chú ý dường dẫn file)
-2. Chạy file 2_validation_data.py (nhớ chú ý dường dẫn file)
-3. Chạy file 3_preprocess_data.py (nhớ chú ý dường dẫn file)
-4. (Optional) Chạy file 4_EDA_data.py (nhớ chú ý dường dẫn file)
-    --> Toàn bộ dữ liệu sinh ra sẽ được lưu tại thư mục data/step_1
+## 3. Step 2 – Sinh tín hiệu giao dịch
+Tính toán chỉ báo kỹ thuật (TI), fundamental (FI), áp rule BUY/SELL.
+python main/step_2/step_2.py --emit-latest-only
+Kết quả:
+- signals_eod_full_YYYYMMDD.csv
+- alerts_eod_YYYYMMDD.csv
+→ Lưu trong data/step2_signals/
 
-* Step 2:---------------------------------------------------------------------------------------------------------------
+## 4. Step 3 – Dashboard cảnh báo
+Chạy dashboard Streamlit để theo dõi tín hiệu mới nhất.
+streamlit run main/step_3/streamlit_app.py
+Hiển thị danh sách cổ phiếu BUY/SELL theo ngày.
 
-1. Fundamental Indicators
-    Chạy file fundamental_indicators.py trong thư mục main/step_2 (nhớ chú ý đường dẫn thư mục)
-2. Technical Indicators
-    Chạy file technical_indicators.py trong thư mục main/step_2 (nhớ chú ý đường dẫn thư mục)
-3. Xử lý dữ liệu sau khi thêm các trường dữ liệu FI và TI
-    Chạy file data_processing_part_1.py trước rồi tới data_processing_part_2.py
-    --> Toàn bộ dữ liệu sinh ra sẽ được lưu tại thư mục data/step_2
+## 5. Step 4 – Backtest & Stress Testing
+Đánh giá hiệu quả và kiểm thử hệ thống trong các kịch bản sốc thị trường.
+# Backtest lịch sử
+python main/step_4/backtest.py
 
-* Step 3:---------------------------------------------------------------------------------------------------------------
+# Shock test (mô phỏng tin tức bất ngờ, biến động lớn)
+python main/step_4/shock_test.py
 
-1. Chạy file filtering.py (nhớ chú ý dường dẫn file)
+Báo cáo kết quả xuất tại data/reports/
 
-* Step 4:---------------------------------------------------------------------------------------------------------------
-
-1. Chạy file ML.py (nhớ chú ý dường dẫn file)
-
-* Step 5:---------------------------------------------------------------------------------------------------------------
-
-1. Chạy file backtest.py (nhớ chú ý dường dẫn file)
-2. Xem output của file backtest (biểu đồ, bảng biểu, ...) trong thư mục output_backtest
-
-* Step 6:---------------------------------------------------------------------------------------------------------------
-
-1. Chạy file stress_test.py (nhớ chú ý dường dẫn file)
-2. Xem output của file stress_test (biểu đồ, bảng biểu, ...) trong thư mục output_stress_test
+Hoàn tất pipeline end-to-end.
