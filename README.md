@@ -168,4 +168,4 @@ Báo cáo tổng hợp được xuất trong `data/reports/`
 
 ---
 
-**Tác giả:** Nhóm nghiên cứu Data Science Talent Competition 2025 – Round 3  
+**Tác giả:** Nhóm CTP  
